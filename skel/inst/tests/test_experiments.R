@@ -1,0 +1,46 @@
+context("experiments")
+
+test_that("simple experiments work", {
+  reg = makeTestRegistry()
+  rdesc = makeResampleDesc("CV", iters=2)
+  # 1 task, 1 learner, 1 measure
+  addMlrDataTask(reg, id="Iris", rdesc=rdesc) 
+  addMlrLearner(reg, learner=makeLearner("classif.rpart"))
+  addExperiments(reg)
+  submitJobs(reg)
+  expect_true(length(findMissingResults(reg)) == 0)
+  res = reduceResultsMlr(reg)
+  expect_true(is.data.frame(res))
+  expect_true(nrow(res) == 1 && ncol(res) == 4)
+  expect_true(res$mmce.test.mean >= 0 && res$mmce.test.mean <= 0.1)
+  
+  reg = makeTestRegistry()
+  # 2 tasks, 2 learners, 1 measure
+  addMlrDataTask(reg, id="Iris", rdesc=rdesc) 
+  addMlrDataTask(reg, id="Ionosphere", rdesc=rdesc) 
+  addMlrLearner(reg, learner=makeLearner("classif.rpart"))
+  addMlrLearner(reg, learner=makeLearner("classif.lda"))
+  addExperiments(reg)
+  submitJobs(reg)
+  expect_true(length(findMissingResults(reg)) == 0)
+  res = reduceResultsMlr(reg)
+  expect_true(is.data.frame(res))
+  expect_true(nrow(res) == 4 && ncol(res) == 4)
+  expect_true(all(res$mmce.test.mean >= 0 & res$mmce.test.mean <= 0.2))
+
+  reg = makeTestRegistry()
+  # 2 tasks, 1 learner, different measures
+  addMlrDataTask(reg, id="Iris", rdesc=rdesc, measures=list(mmce, ber)) 
+  addMlrDataTask(reg, id="Ionosphere", rdesc=rdesc, measures=mmce) 
+  addMlrLearner(reg, learner=makeLearner("classif.rpart"))
+  addExperiments(reg)
+  submitJobs(reg)
+  expect_true(length(findMissingResults(reg)) == 0)
+  res = reduceResultsMlr(reg)
+  expect_true(is.data.frame(res))
+  expect_true(nrow(res) == 2 && ncol(res) == 5)
+  expect_true(all(res$mmce.test.mean >= 0 & res$mmce.test.mean <= 0.2))
+  expect_true(res$ber.test.mean[[1]] >= 0 && res$ber.test.mean[[1]] <= 0.1)
+  expect_true(is.na(res$ber.test.mean[[2]]))
+})  
+  
