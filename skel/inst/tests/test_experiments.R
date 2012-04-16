@@ -4,7 +4,7 @@ test_that("simple experiments work", {
   reg = makeTestRegistry()
   rdesc = makeResampleDesc("CV", iters=2)
   # 1 task, 1 learner, 1 measure
-  addMlrDataTask(reg, id="Iris", rdesc=rdesc) 
+  addMlrDataTask(reg, id="Iris", resampling=rdesc) 
   addMlrLearner(reg, learner=makeLearner("classif.rpart"))
   addExperiments(reg)
   submitJobs(reg)
@@ -16,8 +16,8 @@ test_that("simple experiments work", {
   
   reg = makeTestRegistry()
   # 2 tasks, 2 learners, 1 measure
-  addMlrDataTask(reg, id="Iris", rdesc=rdesc) 
-  addMlrDataTask(reg, id="Ionosphere", rdesc=rdesc) 
+  addMlrDataTask(reg, id="Iris", resampling=rdesc) 
+  addMlrDataTask(reg, id="Ionosphere", resampling=rdesc) 
   addMlrLearner(reg, learner=makeLearner("classif.rpart"))
   addMlrLearner(reg, learner=makeLearner("classif.lda"))
   addExperiments(reg)
@@ -30,8 +30,8 @@ test_that("simple experiments work", {
 
   reg = makeTestRegistry()
   # 2 tasks, 1 learner, different measures
-  addMlrDataTask(reg, id="Iris", rdesc=rdesc, measures=list(mmce, ber)) 
-  addMlrDataTask(reg, id="Ionosphere", rdesc=rdesc, measures=mmce) 
+  addMlrDataTask(reg, id="Iris", resampling=rdesc, measures=list(mmce, ber)) 
+  addMlrDataTask(reg, id="Ionosphere", resampling=rdesc, measures=mmce) 
   addMlrLearner(reg, learner=makeLearner("classif.rpart"))
   addExperiments(reg)
   submitJobs(reg)
