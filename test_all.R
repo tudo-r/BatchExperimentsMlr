@@ -17,3 +17,4 @@ if (interactive()) {
 
 test_dir("skel/inst/tests")
 print(ls(all=TRUE))
+
