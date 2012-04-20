@@ -8,7 +8,6 @@ addTask = function(reg, task, resampling, measures, seed) {
   } else {
     if (is(measures, "Measure"))
       measures = list(measures)
-    checkArg(measures, "list")
     checkListElementClass(measures, "Measure")
   }
   if (missing(seed)) {
