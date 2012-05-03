@@ -1,5 +1,4 @@
-addExperimentsMlr = function(reg, prob.designs, algo.designs, skip.defined = FALSE) {
-  checkArg(reg, cl = "ExperimentRegistryMlr")
+addExperiments.ExperimentRegistryMlr = function(reg, prob.designs, algo.designs, skip.defined = FALSE) {
   if (missing(prob.designs)) {
     prob.designs = lapply(getProblemIds(reg), makeDesign)
   } else if (is(prob.designs, "Design")) {
@@ -21,6 +20,6 @@ addExperimentsMlr = function(reg, prob.designs, algo.designs, skip.defined = FAL
       resampling@iters
     else
       resampling@rdesc@iters     
-    addExperiments(reg, pid, algo.designs, iters, skip.defined) 
+    BatchExperiments:::addExperiments.ExperimentRegistry(reg, pid, algo.designs, iters, skip.defined) 
   }
 }

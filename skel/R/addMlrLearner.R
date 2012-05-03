@@ -1,11 +1,19 @@
 #' Add resampling of an mlr learner as an algorithm.
+#' 
+#' One resampling iteration is one job.
+#' The resulting object is a list with the following items
+#' \describe{
+#' \item{pred [\code{\linkS4class[mlr]{Prediction}}]}{Prediction for resampling iteration.}
+#' \item{measures [\code{numeric}]}{Named vector of performance measures, measures are taken from problem definition.}
+#' \item{opt.result [\code{\linkS4class[mlrTune]{OptResult}}]}{Result of tuning if done, otherwise \code{NULL}.}
+#' }
 #'
 #' The id of the learner is used as id for the algorithm, but 
 #' \dQuote{classif.} or \dQuote{regr.} is removed.
 #'
 #' @param reg [\code{\link{ExperimentRegistryMlr}}]\cr
 #'   Registry.
-#' @param learner [\code{\link[mlr]{Learner}}]\cr
+#' @param learner [\code{\linkS4class[mlr]{Learner}}]\cr
 #'   Learner.
 #' @return [\code{character(1)}]. Invisibly returns the id.
 #' @export
@@ -13,8 +21,7 @@ addMlrLearner = function(reg, learner) {
   checkArg(reg, "ExperimentRegistryMlr")
   checkArg(learner, "Learner")
   id = learner@id
-  # FIXME: remove learner prefix, dot is allowed in ids. not perfect...#
-  # FIXME: we need the iteration 
+  # FIXME: remove learner prefix, dot is allowed in ids. not perfect...
   id = str_replace(id, "classif\\.", "")
   id = str_replace(id, "regr\\.", "")
   addAlgorithm(reg, id, fun=function(job, static, dynamic, ...) {
@@ -31,8 +38,8 @@ addMlrLearner = function(reg, learner) {
     pred = predict(model, task, subset=test)
     ms = sapply(measures, function(m) performance(m, pred=pred, model=model, task=task))
     names(ms) = sapply(measures, function(m) m@id)
-    opt.result = NULL
-    list(pred=pred, opt.result=opt.result, measures=ms)
-    #c(as.list(ms), res)
+    # will be NULL if ist does not exist = no tuning was done
+    opt.result = attr(model, "opt.result")
+    list(pred=pred, measures=ms, opt.result=opt.result)
   })  
 }

@@ -11,8 +11,8 @@ test_that("simple experiments work", {
   expect_true(length(findMissingResults(reg)) == 0)
   res = reduceResultsMlr(reg)
   expect_true(is.data.frame(res))
-  expect_true(nrow(res) == 1 && ncol(res) == 4)
-  expect_true(res$mmce.test.mean >= 0 && res$mmce.test.mean <= 0.1)
+  expect_true(nrow(res) == 2 && ncol(res) == 6)
+  expect_true(res$mmce >= 0 && res$mmce <= 0.1)
   
   reg = makeTestRegistry()
   # 2 tasks, 2 learners, 1 measure
@@ -25,8 +25,8 @@ test_that("simple experiments work", {
   expect_true(length(findMissingResults(reg)) == 0)
   res = reduceResultsMlr(reg)
   expect_true(is.data.frame(res))
-  expect_true(nrow(res) == 4 && ncol(res) == 4)
-  expect_true(all(res$mmce.test.mean >= 0 & res$mmce.test.mean <= 0.2))
+  expect_true(nrow(res) == 8 && ncol(res) == 6)
+  expect_true(all(res$mmce >= 0 & res$mmce <= 0.2))
 
   reg = makeTestRegistry()
   # 2 tasks, 1 learner, different measures
@@ -38,9 +38,9 @@ test_that("simple experiments work", {
   expect_true(length(findMissingResults(reg)) == 0)
   res = reduceResultsMlr(reg)
   expect_true(is.data.frame(res))
-  expect_true(nrow(res) == 2 && ncol(res) == 5)
-  expect_true(all(res$mmce.test.mean >= 0 & res$mmce.test.mean <= 0.2))
-  expect_true(res$ber.test.mean[[1]] >= 0 && res$ber.test.mean[[1]] <= 0.1)
-  expect_true(is.na(res$ber.test.mean[[2]]))
+  expect_true(nrow(res) == 4 && ncol(res) == 7)
+  expect_true(all(res$mmce >= 0 & res$mmce <= 0.2))
+  expect_true(all(res$ber[1:2] >= 0 & res$ber[1:2] <= 0.1))
+  expect_true(all(is.na(res$ber[3:4])))
 })  
   

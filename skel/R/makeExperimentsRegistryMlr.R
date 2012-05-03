@@ -15,6 +15,6 @@ makeExperimentRegistryMlr = function(...) {
   }
   args$packages = ps
   reg = do.call(makeExperimentRegistry, args)
-  class(reg) = c(class(reg), "ExperimentRegistryMlr")
+  class(reg) = c("ExperimentRegistryMlr", class(reg))
   return(reg)
 }
