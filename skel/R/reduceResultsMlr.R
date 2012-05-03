@@ -6,5 +6,12 @@
 #' @export
 reduceResultsMlr = function(reg, ids) {
   checkArg(reg, "ExperimentRegistryMlr")
-  reduceResultsSimple(reg, ids, fun=function(job, res) res)
+  # aggr is:
+  # FIXME: maybe include train measures
+  reduceResultsExperiments(reg, ids, 
+    fun=function(job, res) {
+      d = data.frame(pred=I(list(res$pred)), opt.result=I(list(res$opt.result)))
+      cbind(d, as.data.frame(as.list(res$measures)))
+  })
 }  
+
