@@ -4,9 +4,7 @@
 #' @return [\code{data.frame}]. Contains everything implied by \code{\link{reduceResultsSimple}} and
 #'   all measures defined in added problems.
 #' @export
-reduceResultsMlr = function(reg) {
+reduceResultsMlr = function(reg, ids) {
   checkArg(reg, "ExperimentRegistryMlr")
-  reduceResultsSimple(reg, fun=function(job, res) {
-    res$aggr
-  })
+  reduceResultsSimple(reg, ids, fun=function(job, res) res)
 }  
