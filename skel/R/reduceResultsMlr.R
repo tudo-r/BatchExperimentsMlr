@@ -18,7 +18,9 @@ reduceResultsMlr = function(reg, ids) {
 
 
 print.ReducedResultsBatchExperimentsMlr = function(x, ...) {
-  x$pred = "<yes>"
-  x$opt.result = ifelse(is.null(x$opt.result), "<yes>", "<no>")
+  if (nrow(x) > 0) {
+    x$pred = "<yes>"
+    x$opt.result = ifelse(is.null(x$opt.result), "<yes>", "<no>")
+  }
   print.data.frame(x)
 }

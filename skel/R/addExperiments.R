@@ -4,12 +4,7 @@ addExperiments.ExperimentRegistryMlr = function(reg, prob.designs, algo.designs,
   } else if (is(prob.designs, "Design")) {
     prob.designs = list(prob.designs)
   }
-  if (missing(algo.designs)) {
-    algo.designs = lapply(getAlgorithmIds(reg), makeDesign)
-  }
 
-  if (is(prob.designs, "Design"))
-    prob.designs = list(prob.designs)
   for (pd in prob.designs) {
     if (is(pd, "character"))
       pid = pd
@@ -20,6 +15,6 @@ addExperiments.ExperimentRegistryMlr = function(reg, prob.designs, algo.designs,
       resampling@iters
     else
       resampling@rdesc@iters     
-    BatchExperiments:::addExperiments.ExperimentRegistry(reg, pid, algo.designs, iters, skip.defined) 
+    BatchExperiments:::addExperiments.ExperimentRegistry(reg, pd, algo.designs, iters, skip.defined) 
   }
 }

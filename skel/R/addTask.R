@@ -1,30 +1,9 @@
 addTask = function(reg, task, resampling, measures, seed) {
-  checkArg(reg, "ExperimentRegistryMlr")
-  checkArg(task, "LearnTask")
-  if (!(is(resampling, "ResampleDesc") || is(resampling, "ResampleInstance")))
-    stop("'resampling' must be of class 'ResampleDesc' or 'ResampleInstance'!")
-  if (missing(measures)) {
-    measures = mlr:::default.measures(task)
-  } else {
-    if (is(measures, "Measure"))
-      measures = list(measures)
-    checkListElementClass(measures, "Measure")
-  }
-  if (missing(seed)) {
-    seed = BatchJobs:::getRandomSeed()
-  }
-  else {
-    seed = convertInteger(seed)
-    checkArg(seed, "integer", len=1L, lower=1L, na.ok=FALSE)
-  }
-  static = list(task=task, resampling=resampling, measures=measures)
-  addProblem(reg, id=task@desc@id, seed=seed, static=static, dynamic=function(static) {
-    if (is(static$resampling, "ResampleDesc"))
-      rin = makeResampleInstance(static$resampling, task=static$task)
-    else 
-      rin = resampling
-    list(
-      rin = rin
-      )
+  type = task@desc@type
+  x = addProblemChecks(reg, type, resampling, measures, seed)
+  static = list(type=type, resampling=resampling, measures=x$measures, task=task)
+  addProblem(reg, id=task@desc@id, seed=x$seed, static=static, dynamic=function(static) {
+    rin = getResamplingInstance(static$resampling, static$task@desc@size)
+    list(rin = rin)
   })
 }

@@ -25,10 +25,7 @@ addMlrLearner = function(reg, learner) {
   id = str_replace(id, "classif\\.", "")
   id = str_replace(id, "regr\\.", "")
   addAlgorithm(reg, id, fun=function(job, static, dynamic, ...) {
-    if (is.null(static$task))
-      task = dynamic$task
-    else
-      task = static$task
+    task = getTask(static, dynamic)
     rin = dynamic$rin
     repl = job$repl
     train = rin@train.inds[[repl]]
