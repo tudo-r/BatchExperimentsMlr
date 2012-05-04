@@ -5,7 +5,7 @@ Author: Bernd Bischl <bernd_bischl@gmx.net>
 Maintainer: Bernd Bischl <bernd_bischl@gmx.net>
 License: BSD
 Depends: BatchJobs, BatchExperiments, mlr 
-Suggests: mlrData
+Suggests: mlrData, mlrTune, mlrChains
 LazyData: yes
 ByteCompile: yes
 Version: 1.0

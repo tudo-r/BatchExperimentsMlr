@@ -12,7 +12,7 @@ test_that("simple experiments work", {
   res = reduceResultsMlr(reg)
   expect_true(is.data.frame(res))
   expect_true(nrow(res) == 2 && ncol(res) == 6)
-  expect_true(res$mmce >= 0 && res$mmce <= 0.1)
+  expect_true(all(res$mmce >= 0 & res$mmce <= 0.1))
   
   reg = makeTestRegistry()
   # 2 tasks, 2 learners, 1 measure

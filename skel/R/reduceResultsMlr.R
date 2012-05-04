@@ -12,15 +12,18 @@ reduceResultsMlr = function(reg, ids) {
       d = data.frame(pred=I(list(res$pred)), opt.result=I(list(res$opt.result)))
       cbind(d, as.data.frame(as.list(res$measures)))
   })
-  class(res) = c("ReducedResultsBatchExperimentsMlr", class(res))
+  class(res) = c("ReducedResultsExperimentsMlr", class(res))
   return(res)
 }  
 
 
-print.ReducedResultsBatchExperimentsMlr = function(x, ...) {
+print.ReducedResultsExperimentsMlr = function(x, ...) {
   if (nrow(x) > 0) {
-    x$pred = "<yes>"
-    x$opt.result = ifelse(is.null(x$opt.result), "<yes>", "<no>")
+    cns = colnames(x)
+    if ("pred" %in% cns)
+      x$pred = "<yes>"
+    if ("opt.result" %in% cns)
+      x$opt.result = ifelse(sapply(x$opt.result, is.null), "<no>", "<yes>")
   }
   print.data.frame(x)
 }
