@@ -1,11 +1,11 @@
-#' Add resampling of an mlr learner as an algorithm.
+#' Add resampling of an \pkg{mlr} learner as an algorithm.
 #' 
 #' One resampling iteration is one job.
 #' The resulting object is a list with the following items
 #' \describe{
-#' \item{pred [\code{\linkS4class[mlr]{Prediction}}]}{Prediction for resampling iteration.}
+#' \item{pred [\code{\linkS4class{Prediction}}]}{Prediction for resampling iteration.}
 #' \item{measures [\code{numeric}]}{Named vector of performance measures, measures are taken from problem definition.}
-#' \item{opt.result [\code{\linkS4class[mlrTune]{OptResult}}]}{Result of tuning if done, otherwise \code{NULL}.}
+#' \item{opt.result [\code{\linkS4class{OptResult}}]}{Result of tuning if done, otherwise \code{NULL}.}
 #' }
 #'
 #' The id of the learner is used as id for the algorithm, but 
@@ -13,7 +13,7 @@
 #'
 #' @param reg [\code{\link{ExperimentRegistryMlr}}]\cr
 #'   Registry.
-#' @param learner [\code{\linkS4class[mlr]{Learner}}]\cr
+#' @param learner [\code{\linkS4class{Learner}}]\cr
 #'   Learner.
 #' @return [\code{character(1)}]. Invisibly returns the id.
 #' @export

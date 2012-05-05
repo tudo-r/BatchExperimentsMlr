@@ -1,4 +1,4 @@
-#' Add mlrData task as a problem.
+#' Add \pkg{mlrData} task as a problem.
 #'
 #' Learners should be compared on the same training / test splits, therefore
 #' a problem seed will always be used to synchronize resampling. 
@@ -6,12 +6,12 @@
 #' @param reg [\code{\link{ExperimentRegistryMlr}}]\cr
 #'   Registry.
 #' @param id [\code{character(1)}]\cr
-#'   Id of task in mlrData. Will also be used as id of BatchExperiments problem.
+#'   Id of task in \pkg{mlrData}. Will also be used as id of \pkg{BatchExperiments} problem.
 #' @param resampling [\code{\link[mlr]{ResampleDesc}} | \code{\link[mlr]{ResampleInstance}}]\cr
 #'   Resampling strategy.
 #' @param measures [\code{\link[mlr]{Measure}} | list of \code{\link[mlr]{Measure}}]\cr
 #'   Performance measures to evaluate for task.
-#'   Default are the default mlr measures for the task.
+#'   Default are the default \pkg{mlr} measures for the task.
 #' @param seed [\code{integer(1)}]\cr
 #'   Problem seed.
 #'   Default is to generate a random one.

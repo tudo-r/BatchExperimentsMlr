@@ -1,6 +1,6 @@
-#' Construct registry for mlr benchmark experiments.
+#' Construct registry for \pkg{mlr} benchmark experiments.
 #'
-#' BatchExperimentsMlr will always be added to the registry packages. 
+#' \pkg{BatchExperimentsMlr} will always be added to the registry packages. 
 #' @param ... See [\code{\link{ExperimentRegistry}}].
 #' @return [\code{\link{ExperimentRegistryMlr}}].
 #' @export

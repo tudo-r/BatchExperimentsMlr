@@ -1,3 +1,20 @@
+#' Unwrap optimal hyperparameter and performance values from reduced results.
+#'
+#' Unwrap \code{\link[mlrTune]{optResult}} from the \code{data.frame} returned by \code{\link{reduceResultsMlr}}.
+#'
+#' @param data [\code{data.frame}] \cr
+#'   Result \code{data.frame} from \code{\link{reduceResultsMlr}}.
+#' @param x [\code{logical(1)}] \cr
+#'   Should slot \code{x} be extracted? \code{x} contains a named list of hyperparameter values, 
+# (or character vector of variables?), 
+#'   identified as optimal.
+#' @param y [\code{logical(1)}] \cr
+#'   Should slot \code{y} be extracted? \code{y} contains the performance values for optimal \code{x}.
+#' @param keep [\code{logical(1)}] \cr
+#'   Should \code{\link[mlrTune]{optResult}} be kept in \code{data}? If \code{FALSE} it is removed.
+#' @return [\code{data.frame}] \code{data}, possibly augmented by the optimal hyperparameter values and corresponding
+#'   performance measures and \code{\link[mlrTune]{optResult}} removed.
+#' @export
 unwrapOptResults = function(data, x=TRUE, y=FALSE, keep=FALSE) {
   checkArg(data, "ReducedResultsExperimentsMlr")
   checkArg(x, "logical", len=1L, na.ok=FALSE)

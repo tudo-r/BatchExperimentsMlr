@@ -1,3 +1,5 @@
+#' @method addExperiments ExperimentRegistryMlr
+#' @S3method addExperiments ExperimentRegistryMlr
 addExperiments.ExperimentRegistryMlr = function(reg, prob.designs, algo.designs, skip.defined = FALSE) {
   if (missing(prob.designs)) {
     prob.designs = lapply(getProblemIds(reg), makeDesign)

@@ -1,7 +1,9 @@
-#' Reduce results into standard data.frame
+#' Reduce results into standard \code{data.frame}.
 #' @param reg [\code{\link{ExperimentRegistryMlr}}]\cr
 #'   Experiment registry.
-#' @return [\code{data.frame}]. Contains everything implied by \code{\link{reduceResultsSimple}} and
+#' @param ids [\code{integer}]\cr
+#'   Ids of selected experiments. Default is all jobs for which results are available.
+#' @return [\code{data.frame}]. Contains everything implied by \code{\link{reduceResultsExperiments}} and
 #'   all measures defined in added problems.
 #' @export
 reduceResultsMlr = function(reg, ids) {
@@ -17,6 +19,8 @@ reduceResultsMlr = function(reg, ids) {
 }  
 
 
+#' @method print ReducedResultsExperimentsMlr
+#' @S3method print ReducedResultsExperimentsMlr
 print.ReducedResultsExperimentsMlr = function(x, ...) {
   if (nrow(x) > 0) {
     cns = colnames(x)
