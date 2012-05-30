@@ -22,8 +22,8 @@ addMlrLearner = function(reg, learner) {
   checkArg(learner, "Learner")
   id = learner@id
   # FIXME: remove learner prefix, dot is allowed in ids. not perfect...
-  id = str_replace(id, "classif\\.", "")
-  id = str_replace(id, "regr\\.", "")
+  id = gsub("classif\\.", "", id)
+  id = gsub("regr\\.", "", id)
   addAlgorithm(reg, id, fun=function(job, static, dynamic, ...) {
     task = getTask(static, dynamic)
     rin = dynamic$rin
