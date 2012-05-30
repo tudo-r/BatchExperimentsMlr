@@ -18,6 +18,7 @@
 #' @return [\code{character(1)}]. Invisibly returns the id.
 #' @export
 addMlrDataTask = function(reg, id, resampling, measures, seed) {
+  require(mlrData)
   checkArg(id, "character", len=1, na.ok=FALSE)
   env = getDataset(id=id, task="train", assign=FALSE)
   addTask(reg, env$task, resampling, measures, seed)
