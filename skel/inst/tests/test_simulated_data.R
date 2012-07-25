@@ -4,7 +4,7 @@ test_that("simuls work", {
   rdesc = makeResampleDesc("CV", iters=2)
   #  no simul params
   simul = function() {
-    data.frame(x1=runif(100), x2=runif(100), y=rep(1:2, each=50))
+    data.frame(x1=runif(100), x2=runif(100), y=as.factor(rep(1:2, each=50)))
   }  
   reg = makeTestRegistry()
   addSimulatedData(reg, id="s", type="classif", fun=simul,  target="y", resampling=rdesc) 
@@ -19,10 +19,10 @@ test_that("simuls work", {
 
   #  simul with params
   simul = function(n) {
-    data.frame(x1=runif(n), x2=runif(n), y=rep(1:2, each=n/2))
+    data.frame(x1=runif(n), x2=runif(n), y=as.factor(rep(1:2, each=n/2)))
   }  
   reg = makeTestRegistry()
-  addSimulatedData(reg, id="s", type="classif", fun=simul,  target="y", resampling=rdesc) 
+  addSimulatedData(reg, id="s", type="classif", fun=simul, target="y", resampling=rdesc) 
   pd = makeDesign("s", exhaustive=list(n=c(100, 200)))
   addMlrLearner(reg, learner=makeLearner("classif.rpart"))
   addExperiments(reg, prob.designs=pd)
@@ -50,6 +50,6 @@ test_that("simul seeding works", {
   expect_true(length(findMissingResults(reg)) == 0)
   res = reduceResultsMlr(reg)
   # y and prediction must be the same
-  expect_equal(res$pred[[1]]@df$truth, res$pred[[2]]@df$truth)
-  expect_equal(res$pred[[1]]@df$response, res$pred[[2]]@df$response)
+  expect_equal(res$pred[[1]]$data$truth, res$pred[[2]]$data$truth)
+  expect_equal(res$pred[[1]]$data$response, res$pred[[2]]$data$response)
 })  

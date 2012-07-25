@@ -3,9 +3,9 @@
 #' One resampling iteration is one job.
 #' The resulting object is a list with the following items
 #' \describe{
-#' \item{pred [\code{\linkS4class{Prediction}}]}{Prediction for resampling iteration.}
+#' \item{pred [\code{\link[mlr]{Prediction}}]}{Prediction for resampling iteration.}
 #' \item{measures [\code{numeric}]}{Named vector of performance measures, measures are taken from problem definition.}
-#' \item{opt.result [\code{\linkS4class{OptResult}}]}{Result of tuning if done, otherwise \code{NULL}.}
+#' \item{opt.result [\code{\link[mlrTune]{OptResult}}]}{Result of tuning if done, otherwise \code{NULL}.}
 #' }
 #'
 #' The id of the learner is used as id for the algorithm, but 
@@ -13,7 +13,7 @@
 #'
 #' @param reg [\code{\link{ExperimentRegistryMlr}}]\cr
 #'   Registry.
-#' @param learner [\code{\linkS4class{Learner}}]\cr
+#' @param learner [\code{\link[mlr]{Learner}}]\cr
 #'   Learner.
 #' @return [\code{character(1)}]. Invisibly returns the id.
 #' @export
@@ -36,7 +36,7 @@ addMlrLearner = function(reg, learner) {
     ms = sapply(measures, function(m) performance(m, pred=pred, model=model, task=task))
     names(ms) = sapply(measures, function(m) m$id)
     # will be NULL if ist does not exist = no tuning was done
-    opt.result = attr(model, "opt.result")
+    opt.result = model$learner.model$opt.result
     list(pred=pred, measures=ms, opt.result=opt.result)
   })  
 }

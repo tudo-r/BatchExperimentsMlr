@@ -1,6 +1,8 @@
 context("tune")
 
 test_that("tune", {
+  library(mlrTune)
+  library(mlrChains)
   reg = makeTestRegistry()
   rdesc = makeResampleDesc("CV", iters=2)
   addMlrDataTask(reg, id="Iris", resampling=rdesc) 
@@ -10,7 +12,7 @@ test_that("tune", {
     makeNumericParam("cost", lower=0.1, upper=10),
     makeNumericParam("gamma", lower=0.001, upper=0.1)
   )
-  ctrl = makeTuneControlCMAES(start=c(1,15), maxit=10)
+  ctrl = makeTuneControlCMAES(start=c(cost=5, gamma=0.05), maxit=10)
   inner = makeResampleDesc("Holdout")
   lrn = makeTuneWrapper(lrn, par.set=ps, control=ctrl, resampling=inner)
   addMlrLearner(reg, learner=lrn)  

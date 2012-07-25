@@ -5,7 +5,7 @@
 #'
 #' @param reg [\code{\link{ExperimentRegistryMlr}}]\cr
 #'   Registry.
-#' @param task [\code{\link[mlr]{Task}}]\cr
+#' @param task [\code{\link[mlr]{SupervisedTask}}]\cr
 #'   Learn task.
 #' @param resampling [\code{\link[mlr]{ResampleDesc}} | \code{\link[mlr]{ResampleInstance}}]\cr
 #'   Resampling strategy.

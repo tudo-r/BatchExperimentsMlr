@@ -1,6 +1,8 @@
 #' @method addExperiments ExperimentRegistryMlr
 #' @S3method addExperiments ExperimentRegistryMlr
-addExperiments.ExperimentRegistryMlr = function(reg, prob.designs, algo.designs, skip.defined = FALSE) {
+addExperiments.ExperimentRegistryMlr = function(reg, prob.designs, algo.designs, repls, skip.defined = FALSE) {
+  if (!missing(repls))
+    stop("'repls' should not be used here, replications are specified via resampling iterations!")
   if (missing(prob.designs)) {
     prob.designs = lapply(getProblemIds(reg), makeDesign)
   } else if (is(prob.designs, "Design")) {
