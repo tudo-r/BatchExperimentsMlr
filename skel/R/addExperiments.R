@@ -14,9 +14,9 @@ addExperiments.ExperimentRegistryMlr = function(reg, prob.designs, algo.designs,
       pid = pd$id
     resampling = getProblem(reg, id=pid)$static$resampling  
     iters = if (is(resampling, "ResampleDesc"))
-      resampling@iters
+      resampling$iters
     else
-      resampling@rdesc@iters     
+      resampling$rdesc$iters     
     BatchExperiments:::addExperiments.ExperimentRegistry(reg, pd, algo.designs, iters, skip.defined) 
   }
 }

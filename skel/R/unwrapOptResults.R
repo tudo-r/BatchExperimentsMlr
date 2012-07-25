@@ -24,13 +24,13 @@ unwrapOptResults = function(data, x=TRUE, y=FALSE, keep=FALSE) {
   ors = data$opt.result
   if (x) {
     # FIXME report bug in plyr
-    xs = lapply(ors, function(or) if(is.null(or)) data.frame(.xxx=1) else as.data.frame(or@x))
+    xs = lapply(ors, function(or) if(is.null(or)) data.frame(.xxx=1) else as.data.frame(or$x))
     xs = do.call(rbind.fill, xs)
     xs$.xxx = NULL
     data = cbind(data, xs)
   }
   if (y) {
-    ys = lapply(ors, function(or) if(is.null(or)) data.frame(.xxx=1) else as.data.frame(as.list(or@y)))
+    ys = lapply(ors, function(or) if(is.null(or)) data.frame(.xxx=1) else as.data.frame(as.list(or$y)))
     ys = do.call(rbind.fill, ys)
     ys$.xxx = NULL
     colnames(ys) = sprintf("opt.%s", colnames(ys)) 

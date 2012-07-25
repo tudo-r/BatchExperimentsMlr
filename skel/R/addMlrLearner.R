@@ -20,7 +20,7 @@
 addMlrLearner = function(reg, learner) {
   checkArg(reg, "ExperimentRegistryMlr")
   checkArg(learner, "Learner")
-  id = learner@id
+  id = learner$id
   # FIXME: remove learner prefix, dot is allowed in ids. not perfect...
   id = gsub("classif\\.", "", id)
   id = gsub("regr\\.", "", id)
@@ -28,13 +28,13 @@ addMlrLearner = function(reg, learner) {
     task = getTask(static, dynamic)
     rin = dynamic$rin
     repl = job$repl
-    train = rin@train.inds[[repl]]
-    test = rin@test.inds[[repl]]
+    train = rin$train.inds[[repl]]
+    test = rin$test.inds[[repl]]
     measures = static$measures
     model = train(learner, task, subset=train)
     pred = predict(model, task, subset=test)
     ms = sapply(measures, function(m) performance(m, pred=pred, model=model, task=task))
-    names(ms) = sapply(measures, function(m) m@id)
+    names(ms) = sapply(measures, function(m) m$id)
     # will be NULL if ist does not exist = no tuning was done
     opt.result = attr(model, "opt.result")
     list(pred=pred, measures=ms, opt.result=opt.result)
