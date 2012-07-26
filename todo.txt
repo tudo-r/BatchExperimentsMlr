@@ -1,2 +1,4 @@
 - getunedte methoden müssen laufen 
 - checken, dass immer die gleichen resampling instance benutzt wird
+
+test für fehler mit basis lerner bauen, hieer war ein bug.
