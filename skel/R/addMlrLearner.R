@@ -25,6 +25,8 @@ addMlrLearner = function(reg, learner) {
   id = gsub("classif\\.", "", id)
   id = gsub("regr\\.", "", id)
   addAlgorithm(reg, id, fun=function(job, static, dynamic, ...) {
+    configureMlr(on.learner.error=reg$on.learner.error, on.par.without.desc=reg$on.par.without.desc,
+      show.learner.output=reg$show.learner.output)  
     task = getTask(static, dynamic)
     rin = dynamic$rin
     repl = job$repl
