@@ -1,4 +1,4 @@
-#' Add resampling of an \pkg{mlr} learner as an algorithm.
+  #' Add resampling of an \pkg{mlr} learner as an algorithm.
 #' 
 #' One resampling iteration is one job.
 #' The resulting object is a list with the following items
@@ -37,8 +37,10 @@ addMlrLearner = function(reg, learner) {
     pred = predict(model, task, subset=test)
     ms = sapply(measures, function(m) performance(m, pred=pred, model=model, task=task))
     names(ms) = sapply(measures, function(m) m$id)
-    # will be NULL if ist does not exist = no tuning was done
-    opt.result = model$learner.model$opt.result
+    if (inherits(learner, "OptWrapper"))     
+      opt.result = model$learner.model$opt.result
+    else
+      opt.result = NULL
     list(pred=pred, measures=ms, opt.result=opt.result)
   })  
 }
