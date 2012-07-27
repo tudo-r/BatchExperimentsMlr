@@ -12,22 +12,16 @@
 #' @param measures [\code{\link[mlr]{Measure}} | list of \code{\link[mlr]{Measure}}]\cr
 #'   Performance measures to evaluate for task.
 #'   Default are the default \pkg{mlr} measures for the task.
-#' @param naomit [\code{logical(1)}]\cr
-#'   Should \code{\link{na.omit}} be called on the data to remove rows with missings?
-#'   Default is \code{FALSE}.
 #' @param seed [\code{integer(1)}]\cr
 #'   Problem seed.
 #'   Default is to generate a random one.
+#' @param ... [any]\cr
+#'   Further arguments passed to \code{\link[mlrData]{getDataset}}.
 #' @return [\code{character(1)}]. Invisibly returns the id.
 #' @export
-addMlrDataTask = function(reg, id, resampling, measures, naomit=FALSE, seed) {
+addMlrDataTask = function(reg, id, resampling, measures, seed, ...) {
   require(mlrData)
   checkArg(id, "character", len=1, na.ok=FALSE)
-  # FIXME change arg in getDataset
-  if (naomit)
-    nafun = na.omit
-  else
-    nafun = na.pass
-  env = getDataset(id=id, task="train", assign=FALSE, na.action=nafun)
+  env = getDataset(id=id, task="train", assign=FALSE, ...)
   addTask(reg, env$task, resampling, measures, seed)
 }
