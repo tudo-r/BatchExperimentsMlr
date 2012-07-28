@@ -17,8 +17,8 @@
 #' @return [\code{\link{ExperimentRegistryMlr}}].
 #' @export
 #' @aliases ExperimentRegistryMlr
-makeExperimentRegistryMlr = function(..., on.learner.error="stop", 
-  on.par.without.desc="stop" , show.learner.output=TRUE) {
+makeExperimentRegistryMlr = function(..., on.learner.error="stop", on.par.without.desc="stop" , 
+  show.learner.output=TRUE) {
   
   args = list(...)
   ps = "BatchExperimentsMlr"
@@ -33,5 +33,8 @@ makeExperimentRegistryMlr = function(..., on.learner.error="stop",
   reg$on.learner.error = on.learner.error
   reg$on.par.without.desc = on.par.without.desc
   reg$show.learner.output = show.learner.output
+  # FIXME: we need to save here again, otherwise the stuff above is lost
+  # make internal function in BE
+  BatchJobs:::saveRegistry(reg)
   return(reg)
 }
