@@ -1,0 +1,34 @@
+Package: BatchExperimentsMlr
+Title: BatchExperimentsMlr
+Description: BatchExperimentsMlr
+Author: Bernd Bischl <bernd_bischl@gmx.net>
+Maintainer: Bernd Bischl <bernd_bischl@gmx.net>
+License: BSD
+Depends:
+    BatchJobs,
+    BatchExperiments,
+    mlr
+Imports:
+    plyr
+Suggests:
+    mlrData,
+    mlrTune,
+    mlrChains
+LazyData: yes
+ByteCompile: yes
+Version: 1.0
+Collate:
+    'addExperiments.R'
+    'addMlrDataTask.R'
+    'addMlrLearner.R'
+    'addMlrTask.R'
+    'addMlrTunedLearner.R'
+    'addProblemChecks.R'
+    'addSimulatedData.R'
+    'addTask.R'
+    'helpers.R'
+    'makeExperimentsRegistryMlr.R'
+    'mlrTuning.R'
+    'reduceResultsMlr.R'
+    'unwrapOptResults.R'
+    'zzz.R'
